@@ -14,7 +14,7 @@ public class KeyMappingMixin {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;setDown(Z)V")
     )
     private static void setDown(KeyMapping instance, boolean bl, Operation<Void> original) {
-        if (instance == Spedcraft.massCraftBind) {
+        if (instance == Spedcraft.masscraftBind) {
             instance.setDown(true);
         } else {
             original.call(instance, bl);

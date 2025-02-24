@@ -1,6 +1,9 @@
 package dev.crec.spedcraft.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.crec.spedcraft.Spedcraft;
+import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -49,14 +52,10 @@ abstract public class ClientPacketListenerMixin extends ClientCommonPacketListen
         }
     }
 
-    @Inject(
-        method = {"refreshRecipeBook"},
-        at = @At(value = "HEAD"),
-        cancellable = true
-    )
-    private void spedcraft$doNotRefreshWhenMassCrafting(CallbackInfo ci) {
-        if (Spedcraft.isMassCraftActive()) {
-            ci.cancel();
+    @WrapMethod(method = "refreshRecipeBook")
+    private void spedcraft$doNotRefreshWhenMassCrafting(ClientRecipeBook clientRecipeBook, Operation<Void> original) {
+        if (!Spedcraft.isMassCraftActive()) {
+            original.call(clientRecipeBook);
         }
     }
 }

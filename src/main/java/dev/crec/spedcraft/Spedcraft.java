@@ -17,13 +17,16 @@ public class Spedcraft implements ClientModInitializer {
 
     public static RecipeDisplayId lastSelectedItem;
     public static boolean failedLastAttempt = false;
+    public static boolean singleCraftTriggered = false;
 
-    public static final KeyMapping massCraftBind = KeyBindingHelper.registerKeyBinding(new ToggleKeyMapping(
-        "Mass Craft",
-        GLFW.GLFW_KEY_M,
-        "Spedcraft",
-        () -> true
-    ));
+    public static final KeyMapping masscraftBind = KeyBindingHelper.registerKeyBinding(
+        new ToggleKeyMapping(
+            "Mass Craft",
+            GLFW.GLFW_KEY_M,
+            "Spedcraft",
+            () -> true
+        )
+    );
 
     private static final FireOnChange<Boolean> massCraftToggleListener = new FireOnChange<>(
         false, (client, newValue) -> {
@@ -37,10 +40,16 @@ public class Spedcraft implements ClientModInitializer {
     }
     );
 
-    public static boolean singleCraftTriggered = false;
-
     public static boolean isMassCraftActive() {
-        return massCraftBind.isDown();
+        return masscraftBind.isDown();
+    }
+
+    public static void haltOperation() {
+        Spedcraft.lastSelectedItem = null;
+        Spedcraft.failedLastAttempt = false;
+        if (Spedcraft.isMassCraftActive()) {
+            Spedcraft.masscraftBind.setDown(true);
+        }
     }
 
     public static void sendCraftingPacket(Minecraft minecraft, Player player) {
@@ -58,12 +67,10 @@ public class Spedcraft implements ClientModInitializer {
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
-
             if (Spedcraft.isMassCraftActive()) {
                 Spedcraft.sendCraftingPacket(client, client.player);
             }
-
-            massCraftToggleListener.fire(client, massCraftBind.isDown());
+            massCraftToggleListener.fire(client, masscraftBind.isDown());
         });
     }
 

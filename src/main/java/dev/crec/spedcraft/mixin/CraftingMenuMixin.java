@@ -14,10 +14,6 @@ public class CraftingMenuMixin {
         at = @At("TAIL")
     )
     private void onRemoved(CallbackInfo ci) {
-        Spedcraft.lastSelectedItem = null;
-        Spedcraft.failedLastAttempt = false;
-        if (Spedcraft.massCraftBind.isDown()) {
-            Spedcraft.massCraftBind.setDown(true);
-        }
+        Spedcraft.haltOperation();
     }
 }
