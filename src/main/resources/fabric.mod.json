@@ -1,0 +1,26 @@
+{
+    "schemaVersion": 1,
+    "id": "spedcraft",
+    "version": "${version}",
+    "name": "spedcraft",
+    "description": "",
+    "authors": [],
+    "contact": {},
+    "license": "MIT",
+    "icon": "assets/spedcraft/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "dev.crec.spedcraft.Spedcraft"
+        ],
+        "main": [
+        ]
+    },
+    "mixins": [
+        "spedcraft.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "minecraft": "${minecraft_version}"
+    }
+}
