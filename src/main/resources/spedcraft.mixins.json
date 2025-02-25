@@ -8,8 +8,9 @@
     "client": [
         "AbstractContainerScreenInvoker",
         "ClientPacketListenerMixin",
+        "RecipeBookComponentMixin",
         "RecipeBookScreenMixin",
-        "RecipeBookComponentMixin"
+        "ToggleKeyMappingMixin"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -53,11 +53,15 @@ public class Spedcraft implements ClientModInitializer {
         );
     }
 
+    public static boolean isOnValidScreen() {
+        var client = Minecraft.getInstance();
+        return client.screen instanceof CraftingScreen || client.screen instanceof InventoryScreen;
+    }
+
     @Override
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
-            if (!(client.screen instanceof CraftingScreen || client.screen instanceof InventoryScreen)) return;
 
             var currentState = isMassCraftActive();
             if (currentState) {
