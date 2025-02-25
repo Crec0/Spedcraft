@@ -41,13 +41,13 @@ abstract public class ClientPacketListenerMixin extends ClientCommonPacketListen
         ) {
             Spedcraft.singleCraftTriggered = false;
             if (packet.getSlot() == 0 && !packet.getItem().isEmpty()) {
-                Spedcraft.failedLastAttempt = false;
+                Spedcraft.lastWasFailure = false;
                 var menu = this.minecraft.player.containerMenu;
                 var slot = menu.getSlot(packet.getSlot());
                 ((AbstractContainerScreenInvoker) this.minecraft.screen).invokeSlotClicked(slot, 0, 1, ClickType.THROW);
                 Spedcraft.sendCraftingPacket(this.minecraft, this.minecraft.player);
             } else {
-                Spedcraft.failedLastAttempt = true;
+                Spedcraft.lastWasFailure = true;
             }
         }
     }
