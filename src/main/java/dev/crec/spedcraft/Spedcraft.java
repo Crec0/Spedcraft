@@ -37,7 +37,7 @@ public class Spedcraft implements ClientModInitializer {
             masscraftBind.setDown(true);
         }
         if (client.player != null && lastTickState) {
-            client.player.displayClientMessage(Component.literal("Mass Craft Disabled"), false);
+            client.player.displayClientMessage(Component.literal("Mass Craft Disabled"), true);
             lastTickState = false;
         }
     }
@@ -70,7 +70,7 @@ public class Spedcraft implements ClientModInitializer {
 
             if (currentState != lastTickState) {
                 var text = Component.literal("Mass Craft " + (currentState ? "Enabled" : "Disabled"));
-                client.player.displayClientMessage(text, false);
+                client.player.displayClientMessage(text, true);
             }
 
             lastTickState = currentState;
